@@ -1,0 +1,113 @@
+import random
+
+Ladder = {4:14 , 10:31 , 18:39 , 28:84 , 51:67 , 62:81 , 71:90 , 75:98}
+Snake = {99:80 , 94:7 , 91:73 ,83:57 , 59:3 , 69:32 , 37:16 , 56:48}
+
+def Move(player,value):
+    dice = random.randint(1,6)
+    print(f"Dice:{dice}")
+    pos = value + dice
+    if pos in Snake:
+        print("Bitten By Snake")
+        pos = Snake[pos]
+        print(f"Position:{pos}")
+    elif pos in Ladder:
+        print("Found a Ladder")
+        pos = Ladder[pos]
+        print(f"Position:{pos}")
+    else:
+        print(f"Position :{pos}")
+    print("\n")
+    return pos
+
+def playerscount():
+    numofplayers = int(input("How many players are in the game?"))
+    print()
+    if numofplayers > 4 or numofplayers < 2:
+        print("Must be less than 5 and greater than 1")
+    else:
+        return numofplayers
+
+
+def nameofplayers(N):
+    Names = []
+    for i in range(1, N+1):
+        Names.append(input("What is the name of Player "+str(i)+" ?"))
+    return Names
+    
+numofplayers = playerscount()
+playernames = nameofplayers(numofplayers)
+#print(' Welcome To Snakes And Ladders',playernames)
+name1 = ''
+name2 = ''
+name3 = ''
+name4 = ''
+for i in playernames:
+    if name1 == '':
+        name1 = i
+
+    elif name2 == '':
+        name2 = i
+        if numofplayers == 2:
+            name3, name4 = "", ""
+            break
+    elif name3 == '':
+        name3 = i
+        if numofplayers == 3:
+            name4 = ""
+            break
+    elif name4 == '':
+        name4 = i
+    else:
+        break
+print (name1,name2,name3,name4,"Welcome to the snake and ladder game")
+
+COMMANDSTATE = "Press Enter to continue or press 'stop' to stop"
+WINSTATEMENT = "WINS THE GAME! CONGRATULATIONS"
+COMMND = input(COMMANDSTATE)
+Num1 = 0
+Num2 = 0
+Num3 = 0
+Num4 = 0
+pos = 0
+
+while Num1 < 100 and Num2 < 100 and Num3 < 100 and Num4 < 100:       
+    if COMMND != 'stop':
+        while pos < numofplayers:
+            pos = pos+1
+            if pos == 1:
+                Num1 = Move(pos,Num1)
+                if Num1 >= 100:
+                    print(name1, WINSTATEMENT)                    
+                    break
+                COMMANDSTATE1 = str("Hey "+name1+"! It's your turn now "+COMMANDSTATE)
+                COMMND = input(COMMANDSTATE1)
+            
+            elif pos == 2:
+                Num2 = Move(pos,Num2)
+                if Num2 >= 100:
+                    print(name2, ' ', WINSTATEMENT)
+                    break
+                COMMANDSTATE1 = str("Hey "+name1+"! It's your turn now "+COMMANDSTATE)
+                COMMND = input(COMMANDSTATE1)
+            
+            elif pos == 3:
+                Num3 = Move(pos,Num3)
+                if Num3 >= 100:
+                    print(name3, WINSTATEMENT)
+                    break
+                COMMANDSTATE1 = str("Hey "+name1+"! It's your turn now "+COMMANDSTATE)
+                COMMND = input(COMMANDSTATE1)
+            
+            elif pos == 4:
+                Num4 = Move(pos,Num4)
+                if Num4 >= 100:
+                    print(name4, WINSTATEMENT)
+                    break
+                COMMANDSTATE1 = str("Hey "+name4+"! It's your turn now "+COMMANDSTATE)
+                COMMND = input(COMMANDSTATE1)
+        pos = 0
+    else:
+        break
+
+print("thanks")
